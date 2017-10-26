@@ -1,0 +1,46 @@
+ <pre id="preview"></pre>
+    <ul id="list"></ul>
+    <script>
+      (function () {
+        // Initialize Firebase
+        const config = {
+          apiKey: "AIzaSyBmFQUrrnkGEnl88kLz-58F2IeA__BZFj8",
+          authDomain: "daichat-83ceb.firebaseapp.com",
+          databaseURL: "https://daichat-83ceb.firebaseio.com",
+          projectId: "daichat-83ceb",
+          storageBucket: "daichat-83ceb.appspot.com",
+          messagingSenderId: "5938595064"
+        };
+        firebase.initializeApp(config);
+
+        // Get element
+        const preview = document.getElementById("preview");
+        const ulList = document.getElementById("list");
+        //
+        const dbPreRef = firebase.database().ref().child('object');
+        const dbListRef = dbPreRef.child('hobby');
+
+        const task = dbPreRef.on('value', snap => {
+          preview.innerText = JSON.stringify(snap.val(),null, 3)
+        });
+
+        dbListRef.on('child_added', snap => {
+          const li = document.createElement('li');
+          li.innerText = snap.val();
+          li.id = snap.key;
+          ulList.appendChild(li);
+        });
+
+        dbListRef.on('child_changed', snap => {
+          const liChanged = document.getElementById(snap.key);
+          liChanged.innerText = snap.val();
+        });
+
+        dbListRef.on('child_removed', snap => {
+          const liRemoved = document.getElementById(snap.key);
+          liRemoved.remove();
+        });
+
+      }());
+    </script>
+    <h1>fefefe</h1>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Firebase Test</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,500" rel="stylesheet">
+    <link rel="stylesheet" href="/src/index.css" />
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <input id="txtEmail" type="email" placeholder="Email">
+
+      <input id="txtPassword" type="password" placeholder="Password">
+
+      <button id="btnLogin" class="btn btn-action">
+        Log in
+      </button>
+
+      <button id="btnSignUp" class="btn btn-secondary">
+        Sign Up
+      </button>
+
+      <button id="btnLogout" class="btn btn-action hide">
+        Log out
+      </button>
+    </div>
+    <script>
+      (function () {
+        // Initialize Firebase
+        const config = {
+          apiKey: "AIzaSyBmFQUrrnkGEnl88kLz-58F2IeA__BZFj8",
+          authDomain: "daichat-83ceb.firebaseapp.com",
+          databaseURL: "https://daichat-83ceb.firebaseio.com",
+          projectId: "daichat-83ceb",
+          storageBucket: "daichat-83ceb.appspot.com",
+          messagingSenderId: "5938595064"
+        };
+        firebase.initializeApp(config);
+
+        // Get elements
+        const txtEmail = document.getElementById('txtEmail');
+        const txtPassword = document.getElementById('txtPassword');
+        const btnLogin = document.getElementById('btnLogin');
+        const btnSignUp = document.getElementById('btnSignUp');
+        const btnLogout = document.getElementById('btnLogout');
+        console.log("frefddeder");
+
+        btnLogin.addEventListener('click',e => {
+          // Get email and pass
+          const email = txtEmail.value;
+          const pass = txtPassword.value;
+          const auth = firebase.auth();
+
+          // Sign in
+          const promise = auth.signInWithEmailAndPassword(email, pass);
+          promise.catch(e=>console.log(e.message));
+        });
+
+        btnLogout.addEventListener('click', e => {
+          firebase.auth().signOut();
+        });
+
+        // Sign up
+        btnSignUp.addEventListener('click', e => {
+          // Get email and pass
+          const email = txtEmail.value;
+          const pass = txtPassword.value;
+          const auth = firebase.auth();
+
+          // Sign in
+          const promise = auth.createUserWithEmailAndPassword(email, pass);
+          promise.catch(e=>console.log(e.message));
+        });
+
+        // Add a realtime listener
+        firebase.auth().onAuthStateChanged(firebaseUser => {
+          if(firebaseUser) {
+            console.log(firebaseUser);
+          }else {
+            console.log('not logged in');
+          }
+        });
+
+
+      }());
+    </script>
+    <h1>fefefe</h1>
+  </body>
+</html>

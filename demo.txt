@@ -1,0 +1,56 @@
+<progress value="0" max="100" id="uploader">0%</progress>
+    <input type="file" value="upload" id="fileButton" />
+    <h1 id="bigOne"}></h1>
+    <div id="root"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBmFQUrrnkGEnl88kLz-58F2IeA__BZFj8",
+        authDomain: "daichat-83ceb.firebaseapp.com",
+        databaseURL: "https://daichat-83ceb.firebaseio.com",
+        projectId: "daichat-83ceb",
+        storageBucket: "daichat-83ceb.appspot.com",
+        messagingSenderId: "5938595064"
+      };
+      firebase.initializeApp(config);
+
+      // Get element
+      var uploader = document.getElementById('uploader');
+      var fileButton = document.getElementById('fileButton');
+
+      // Set listener
+      fileButton.addEventListener('change', (e)=>{
+        // Get file
+        var file = e.target.files[0];
+
+        // Create a storage file
+        var storage = firebase.storage();
+        var storageRef = storage.ref('sweet/' + file.name);
+
+        // Upload file
+        var task = storageRef.put(file);
+
+        // Update progress bar
+        task.on('state_changed',
+          function progress(snapshot) {
+          var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          uploader.value = percentage;
+          },
+
+          function error(err){},
+
+          function complete(){}
+        );
+      });
+
+
+      var bigOne = document.getElementById('bigOne');
+
+      var dbRef = firebase.database().ref().child('text');
+
+      dbRef.on('value', snap => bigOne.innerText = snap.val());
+
+    </script>
+  <script src="/src/index.js"></script>
