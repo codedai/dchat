@@ -49,9 +49,6 @@ class ImgCard extends Component {
                     <img src={this.props.src} style={style} onClick={(e)=>this.handlePreview(e)}></img>
                 </Card>
                 <Dialog
-                    title="preview"
-                    actions={actions}
-                    modal={false}
                     open={this.state.open}
                     onRequestClose={(e)=>this.handleClose(e)}
                 >

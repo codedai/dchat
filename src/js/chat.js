@@ -28,6 +28,7 @@ class Chat extends Component {
         }
     }
 
+
     componentWillMount() {
         const messageRef = firebase.database().ref().child('message')
         messageRef.on('value',snap=>{

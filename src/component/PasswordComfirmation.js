@@ -4,7 +4,7 @@ import MyInput from '../component/MyInput';
 class PasswordComfirmation extends Component {    
     
     handleChange() {
-        if(this._password_com_ref._input_ref.value !== this._password_ref._input_ref.value) {
+        if(this._password_com_ref._input_ref.value !== this._password_ref._input_ref.value && this._password_com_ref._input_ref.value) {
             this._password_com_ref.setState({
                 typeError: true,
                 alertMessage: "not same as password"
@@ -20,9 +20,9 @@ class PasswordComfirmation extends Component {
     render() {
         return (
             <div>
-                <MyInput type="password" placeholder="Password" ref={(ref)=>this._password_ref=ref}/>
                 <div onChange={(e)=>this.handleChange(e)}>
-                    <MyInput type="password" placeholder="Password Comfirmation" ref={(ref)=>this._password_com_ref=ref}/>
+                <MyInput type="password" placeholder="Password" ref={(ref)=>this._password_ref=ref}/>
+                <MyInput type="password" placeholder="Password Comfirmation" ref={(ref)=>this._password_com_ref=ref}/>
                 </div>
             </div>
         );

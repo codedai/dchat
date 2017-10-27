@@ -24,13 +24,14 @@ class MessageSend extends Component {
 
     handleSendButton() {
         var text = this._text_ref.getValue()
-        var name = "WANG"
-        var message = {
-            name: name,
-            text: text
-
+        if(text){
+            var name = "WANG"
+            var message = {
+                name: name,
+                text: text
+            }
+            firebase.database().ref().child('message').push(message)
         }
-        firebase.database().ref().child('message').push(message)
     }
 
     selectPic() {

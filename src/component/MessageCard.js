@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import Paper from 'material-ui/Paper';
 import Message from '../component/Message'
 import ImgCard from '../component/ImgCard'
@@ -10,7 +11,7 @@ const paperStyle = {
     margin: "auto",
 	padding: "1em 1em 2em 1em",
     display: 'center',
-    overflow: "scroll"
+    overflow: "auto"
 }
 
 class MessageCard extends Component {
@@ -24,6 +25,19 @@ class MessageCard extends Component {
         return (<Message name={this.props.messages[key].name} text={this.props.messages[key].text}/>)
     }
     
+    scrollToButtom() {
+        const messagesContainer = ReactDOM.findDOMNode(this._paper_ref)
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    componentDidMount() {
+        this.scrollToButtom()
+    }
+
+    componentDidUpdate() {
+        this.scrollToButtom()
+    }
+
     render() {
         var listMessages = []
         var keys = []
@@ -35,7 +49,7 @@ class MessageCard extends Component {
         listMessages = keys.map((key)=>this.showMessage(key))
 
         return (
-            <div style={paperStyle} ref={(ref)=>this._paper_ref=ref}>
+            <div id="messageCard" style={paperStyle} ref={(ref)=>this._paper_ref=ref}>
                 {listMessages}
             </div>
         );
